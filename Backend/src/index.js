@@ -76,12 +76,23 @@ const videoRouter = require('./routes/videoCreator');
 const cors = require('cors');
 
 // ✅ CORS
-const allowedOrigins = ['http://localhost:5173', process.env.CLIENT_URL];
+const allowedOrigins = [
+    'http://localhost:5173', 
+    process.env.CLIENT_URL,
+    process.env.CLIENT_URL ? process.env.CLIENT_URL.replace(/\/$/, '') : null
+].filter(Boolean);
+
 app.use(cors({
     origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
+        if (!origin) return callback(null, true);
+        
+        // Allow configured origins, localhost, or any vercel.app deployment
+        if (allowedOrigins.includes(origin) || 
+            origin.startsWith('http://localhost:') || 
+            origin.endsWith('.vercel.app')) {
             callback(null, true);
         } else {
+            console.warn(`Blocked CORS request from origin: ${origin}`);
             callback(new Error('Not allowed by CORS'));
         }
     },
