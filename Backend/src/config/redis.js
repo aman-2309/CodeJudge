@@ -11,10 +11,23 @@
 
 const { Redis } = require("@upstash/redis");
 
-const redisClient = new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
+let redisClient;
+
+if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
+    redisClient = new Redis({
+        url: process.env.UPSTASH_REDIS_REST_URL,
+        token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    });
+} else {
+    console.warn("WARNING: Upstash Redis environment variables are missing. Redis client is undefined.");
+    // Provide a dummy client to prevent crashes if it gets called
+    redisClient = {
+        get: async () => null,
+        set: async () => null,
+        expireAt: async () => null,
+        del: async () => null,
+    };
+}
 
 module.exports = redisClient;
 

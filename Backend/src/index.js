@@ -87,7 +87,7 @@ app.use(cors({
     },
     credentials: true,
 }));
-app.options('*', cors()); // handle preflight
+app.options(/.*/, cors()); // handle preflight
 
 app.use(express.json());
 app.use(cookie_parser());
