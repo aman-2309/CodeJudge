@@ -14,8 +14,15 @@ const videoRouter = require('./routes/videoCreator');
 const cors = require('cors')
 
 
+const allowedOrigins = ['http://localhost:5173', process.env.CLIENT_URL];
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
     credentials: true,
 }))
 
@@ -34,11 +41,14 @@ app.use('/video', videoRouter);
 
 const initializeConnection = async () => {
     try {
-        await Promise.all([main(), redisClient.connect()]);
+        await main(); // Upstash Redis does not require .connect()
         console.log("DB Connect");
-        app.listen(process.env.PORT, () => {
-            console.log("server listening at port no. " + process.env.PORT);
-        })
+        // Only start listening if not running on Vercel
+        if (process.env.NODE_ENV !== 'production') {
+            app.listen(process.env.PORT || 5000, () => {
+                console.log("server listening at port no. " + (process.env.PORT || 5000));
+            });
+        }
     } catch (err) {
         console.error('Error: ' + err);
     }
@@ -46,4 +56,5 @@ const initializeConnection = async () => {
 
 initializeConnection();
 
-
+// Export the app for Vercel serverless deployment
+module.exports = app;
