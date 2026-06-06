@@ -4,9 +4,12 @@ const { GoogleGenAI } = require('@google/genai')
 const solveDoubt = async (req, res) => {
 
     try {
-        const { userMessage, problem } = req.body;
+        const { userMessage, problem: requestProblem } = req.body;
 
-        // const problem = await Problem.findById(problemId);
+        const problemId = requestProblem?._id || req.body.problemId;
+        if (!problemId) return res.status(400).send("Problem ID is required");
+
+        const problem = await Problem.findById(problemId);
         if (!problem) return res.status(404).send("Problem not found");
 
         const contents = Array.isArray(userMessage)

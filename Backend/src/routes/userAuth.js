@@ -4,6 +4,7 @@ const { register, login, logout, adminRegister, deleteProfile, checkProfile, get
 const authRouter = express.Router();
 const userMiddlewere = require('../middlewere/userMiddlewere')
 const adminMiddlewere = require('../middlewere/adminMiddlewere')
+const { otpRateLimiter, otpVerifyLimiter } = require('../middlewere/rateLimitMiddlewere')
 
 
 
@@ -32,8 +33,8 @@ authRouter.get(
     googleAuthSuccess,
 );
 
-authRouter.post("/send-otp", sendOtp);
-authRouter.post("/verify-otp", verifyOtp);
+authRouter.post("/send-otp", otpRateLimiter, sendOtp);
+authRouter.post("/verify-otp", otpVerifyLimiter, verifyOtp);
 
 
 
