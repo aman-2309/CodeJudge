@@ -12,6 +12,18 @@ require('dotenv').config();
 
 const CLIENT_URL = process.env.CLIENT_URL;
 
+const cookieOptions = {
+    maxAge: 3600000,
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    secure: process.env.NODE_ENV === 'production',
+};
+
+const clearCookieOptions = {
+    expires: new Date(Date.now()),
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    secure: process.env.NODE_ENV === 'production',
+};
+
 const buildAuthReply = (user) => ({
     firstName: user.firstName,
     lastName: user.lastName || '',
@@ -48,7 +60,7 @@ const register = async (req, res) => {
 
         const token = jwt.sign({ id: user._id, emailId, role: 'user' }, process.env.JWT_KEY, { expiresIn: 3600 });
 
-        res.cookie('token', token, { maxAge: 3600000, sameSite: 'lax' })
+        res.cookie('token', token, cookieOptions);
 
         const reply = buildAuthReply(user);
         res.status(200).json({
@@ -81,7 +93,7 @@ const login = async (req, res) => {
         if (!ok) throw new Error("Invalid Credentials");
 
         const token = jwt.sign({ id: user._id, emailId: emailId, role: user.role }, process.env.JWT_KEY, { expiresIn: 3600 });
-        res.cookie('token', token, { maxAge: 3600000, sameSite: 'lax' });
+        res.cookie('token', token, cookieOptions);
 
         const reply = buildAuthReply(user);
         res.status(201).json({
@@ -105,7 +117,7 @@ const logout = async (req, res) => {
 
         await redisClient.expireAt(`token:${token}`, payload.exp);
 
-        res.cookie('token', null, { expires: new Date(Date.now()) })
+        res.cookie('token', null, clearCookieOptions);
         res.status(200).send("Logged out Successfully");
     } catch (err) {
         res.status(503).json({ message: err.message || 'Logout failed' });
@@ -123,7 +135,7 @@ const adminRegister = async (req, res) => {
         const user = await User.findOne({ emailId });
 
         const token = jwt.sign({ id: user._id, emailId: emailId, role: user.role }, process.env.JWT_KEY, { expiresIn: 3600 });
-        res.cookie('token', token, { maxAge: 3600000 })
+        res.cookie('token', token, cookieOptions);
 
         res.status(201).send("Admin Registered Successfully");
     } catch (err) {
@@ -199,7 +211,7 @@ const googleAuthSuccess = async (req, res) => {
             { expiresIn: 3600 },
         );
 
-        res.cookie('token', token, { maxAge: 3600000, sameSite: 'lax' });
+        res.cookie('token', token, cookieOptions);
         return res.redirect(CLIENT_URL);
     } catch (err) {
         return res.redirect(`${CLIENT_URL}/login?error=google_auth_failed`);
@@ -256,7 +268,7 @@ const verifyOtp = async (req, res) => {
 
 
         const token = jwt.sign({ id: user._id, emailId: emailId, role: 'user' }, process.env.JWT_KEY, { expiresIn: 3600 });
-        res.cookie('token', token, { maxAge: 3600000, sameSite: 'lax' });
+        res.cookie('token', token, cookieOptions);
 
         const reply = buildAuthReply(user);
 
