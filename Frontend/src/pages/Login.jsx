@@ -10,8 +10,8 @@ import { useEffect, useState } from "react";
 //Schema validation
 
 const logInSchema = z.object({
-  emailId: z.string().email("email sahi se likh"),
-  password: z.string().min(8, "Password chhota hai abhi"),
+  emailId: z.string().email("Please enter a valid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
 function Login() {
@@ -57,7 +57,7 @@ function Login() {
     <div className="min-h-screen bg-base-300 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-md bg-base-100 rounded-md shadow-md border border-base-300 p-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold tracking-tight">LeetCode</h1>
+          <h1 className="text-4xl font-bold tracking-tight">CodeJudge</h1>
           <p className="text-sm text-base-content/60 mt-2">
             Log in to your account
           </p>

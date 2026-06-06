@@ -10,17 +10,17 @@ import { useEffect, useState } from "react";
 //Schema validation
 
 const signUpSchema = z.object({
-  firstName: z.string().min(4, "Sahi se Naam Likh"),
-  emailId: z.string().email("email sahi se likh"),
+  firstName: z.string().min(4, "First name must be at least 4 characters"),
+  emailId: z.string().email("Please enter a valid email address"),
   password: z
     .string()
-    .min(8, "Password kam se kam 8 characters ka hona chahiye")
-    .regex(/[A-Z]/, "Password me 1 uppercase letter zaroor hona chahiye")
-    .regex(/[a-z]/, "Password me 1 lowercase letter zaroor hona chahiye")
-    .regex(/[0-9]/, "Password me 1 number zaroor hona chahiye")
+    .min(8, "Password must be at least 8 characters long")
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+    .regex(/[0-9]/, "Password must contain at least one number")
     .regex(
       /[^A-Za-z0-9]/,
-      "Password me 1 special character zaroor hona chahiye",
+      "Password must contain at least one special character",
     ),
 });
 
@@ -110,7 +110,7 @@ function Signup() {
     <div className="min-h-screen bg-base-300 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-md bg-base-100 rounded-md shadow-md border border-base-300 p-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold tracking-tight">LeetCode</h1>
+          <h1 className="text-4xl font-bold tracking-tight">CodeJudge</h1>
           <p className="text-sm text-base-content/60 mt-2">
             Create your account
           </p>

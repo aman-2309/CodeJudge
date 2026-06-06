@@ -31,7 +31,8 @@ A full-stack, feature-rich web application that replicates the core functionalit
 * **Caching:** Redis (Session & token management)
 * **Authentication:** Passport.js (Google Auth), JWT, Bcrypt
 * **Email Services:** Nodemailer (For OTP verification)
-* **AI & Cloud Services:** Google GenAI SDK, Cloudinary
+* **AI & Cloud Services:** Google GenAI SDK, Cloudinary, Judge0 API (RapidAPI)
+* **Security:** express-rate-limit (API rate limiting and DoS protection)
 
 ---
 
@@ -66,8 +67,8 @@ A full-stack, feature-rich web application that replicates the core functionalit
 Ensure you have the following installed on your machine:
 * Node.js (v18 or higher)
 * MongoDB (Local or Atlas URL)
-* Redis Server
-* Necessary API Keys (Google OAuth, Gemini AI, Cloudinary)
+* Redis (Local or Upstash Redis URL/Token)
+* Necessary API Keys (Google OAuth, Gemini AI, Cloudinary, Judge0 API)
 
 ### 2. Backend Setup
 1. Navigate to the backend directory:
@@ -93,11 +94,15 @@ Ensure you have the following installed on your machine:
    ```bash
    npm install
    ```
-3. Start the development server:
+3. Create a `.env` file in the `Frontend` directory and configure the backend URL:
+   ```env
+   VITE_API_URL=http://localhost:5000
+   ```
+4. Start the development server:
    ```bash
    npm run dev
    ```
-4. The application should now be running (typically accessible at `http://localhost:5173`).
+5. The application should now be running (typically accessible at `http://localhost:5173`).
 
 ---
 

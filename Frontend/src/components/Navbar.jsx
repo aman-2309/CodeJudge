@@ -23,7 +23,7 @@ function Navbar() {
           className="btn btn-ghost gap-2 text-xl font-bold tracking-tight text-amber-400 hover:bg-slate-800/70 hover:text-amber-300"
         >
           <Code2 size={20} />
-          LeetCode
+          CodeJudge
         </NavLink>
       </div>
 
