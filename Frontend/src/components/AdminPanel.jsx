@@ -168,7 +168,7 @@ function AdminCreate() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Basic Information */}
-        <div className="card border border-base-300 bg-base-100/90 p-6 shadow-xl backdrop-blur-sm">
+        <div className="card border border-[#3a3a3a] bg-[#262626] p-6 rounded-lg">
           <h2 className="mb-4 text-xl font-semibold text-base-content">
             Basic Information
           </h2>
@@ -268,7 +268,7 @@ function AdminCreate() {
         </div>
 
         {/* Test Cases */}
-        <div className="card border border-base-300 bg-base-100/90 p-6 shadow-xl backdrop-blur-sm">
+        <div className="card border border-[#3a3a3a] bg-[#262626] p-6 rounded-lg">
           <h2 className="mb-4 text-xl font-semibold text-base-content">
             Test Cases
           </h2>
@@ -293,7 +293,7 @@ function AdminCreate() {
             {visibleFields.map((field, index) => (
               <div
                 key={field.id}
-                className="space-y-2 rounded-xl border border-base-300 bg-base-200/40 p-4"
+                className="space-y-2 rounded-lg border border-[#3a3a3a] bg-[#1a1a1a]/50 p-4"
               >
                 <div className="flex justify-end">
                   <button
@@ -344,7 +344,7 @@ function AdminCreate() {
             {hiddenFields.map((field, index) => (
               <div
                 key={field.id}
-                className="space-y-2 rounded-xl border border-base-300 bg-base-200/40 p-4"
+                className="space-y-2 rounded-lg border border-[#3a3a3a] bg-[#1a1a1a]/50 p-4"
               >
                 <div className="flex justify-end">
                   <button
@@ -373,7 +373,7 @@ function AdminCreate() {
         </div>
 
         {/* Code Templates */}
-        <div className="card border border-base-300 bg-base-100/90 p-6 shadow-xl backdrop-blur-sm">
+        <div className="card border border-[#3a3a3a] bg-[#262626] p-6 rounded-lg">
           <h2 className="mb-4 text-xl font-semibold text-base-content">
             Code Templates
           </h2>
@@ -389,7 +389,7 @@ function AdminCreate() {
                   <label className="label">
                     <span className="label-text font-medium">Initial Code</span>
                   </label>
-                  <pre className="rounded-xl border border-base-300 bg-base-200 p-4">
+                  <pre className="rounded-lg border border-[#3a3a3a] bg-[#1a1a1a] p-4">
                     <textarea
                       {...register(`startCode.${index}.initialCode`)}
                       className="w-full bg-transparent font-mono text-sm leading-6 text-base-content focus:outline-none"
@@ -404,7 +404,7 @@ function AdminCreate() {
                       Reference Solution
                     </span>
                   </label>
-                  <pre className="rounded-xl border border-base-300 bg-base-200 p-4">
+                  <pre className="rounded-lg border border-[#3a3a3a] bg-[#1a1a1a] p-4">
                     <textarea
                       {...register(`referenceSolution.${index}.completeCode`)}
                       className="w-full bg-transparent font-mono text-sm leading-6 text-base-content focus:outline-none"
@@ -419,7 +419,7 @@ function AdminCreate() {
 
         <button
           type="submit"
-          className="btn btn-primary btn-lg w-full shadow-lg"
+          className="btn btn-primary btn-lg w-full rounded-md border-none bg-[#ffa116] text-[#1a1a1a] hover:bg-[#ffb84d]"
         >
           Create Problem
         </button>

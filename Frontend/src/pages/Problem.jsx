@@ -203,13 +203,7 @@ const Problem = () => {
   };
 
 
-  if (loading && !problem) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <span className="loading loading-spinner loading-lg"></span>
-      </div>
-    );
-  }
+  // Skeleton is handled inline to preserve DOM structure
 
   return (
     <div
@@ -224,32 +218,32 @@ const Problem = () => {
         {/* Left Tabs */}
         <div className="tabs tabs-bordered bg-base-200 px-4">
           <button
-            className={`tab ${activeLeftTab === "description" ? "tab-active" : ""}`}
+            className={`tab ${activeLeftTab === "description" ? "tab-active text-[#ffa116]" : "text-[#8a8a8a] hover:text-[#e0e0e0]"}`}
             onClick={() => setActiveLeftTab("description")}
           >
             Description
           </button>
           <button
-            className={`tab ${activeLeftTab === "editorial" ? "tab-active" : ""}`}
+            className={`tab ${activeLeftTab === "editorial" ? "tab-active text-[#ffa116]" : "text-[#8a8a8a] hover:text-[#e0e0e0]"}`}
             onClick={() => setActiveLeftTab("editorial")}
           >
             Editorial
           </button>
           <button
-            className={`tab ${activeLeftTab === "solutions" ? "tab-active" : ""}`}
+            className={`tab ${activeLeftTab === "solutions" ? "tab-active text-[#ffa116]" : "text-[#8a8a8a] hover:text-[#e0e0e0]"}`}
             onClick={() => setActiveLeftTab("solutions")}
           >
             Solutions
           </button>
           <button
-            className={`tab ${activeLeftTab === "submissions" ? "tab-active" : ""}`}
+            className={`tab ${activeLeftTab === "submissions" ? "tab-active text-[#ffa116]" : "text-[#8a8a8a] hover:text-[#e0e0e0]"}`}
             onClick={() => setActiveLeftTab("submissions")}
           >
             Submissions
           </button>
 
           <button
-            className={`tab ${activeLeftTab === "chatAI" ? "tab-active" : ""}`}
+            className={`tab ${activeLeftTab === "chatAI" ? "tab-active text-[#ffa116]" : "text-[#8a8a8a] hover:text-[#e0e0e0]"}`}
             onClick={() => setActiveLeftTab("chatAI")}
           >
             ChatAI
@@ -258,7 +252,22 @@ const Problem = () => {
 
         {/* Left Content */}
         <div className="flex-1 overflow-y-auto p-6">
-          {problem && (
+          {loading && !problem ? (
+            <div className="space-y-4">
+              <div className="skeleton h-8 w-3/4 bg-[#333333] rounded"></div>
+              <div className="flex gap-2 mb-6">
+                <div className="skeleton h-6 w-16 rounded-md bg-[#333333]"></div>
+                <div className="skeleton h-6 w-16 rounded-md bg-[#333333]"></div>
+                <div className="skeleton h-6 w-16 rounded-md bg-[#333333]"></div>
+              </div>
+              <div className="skeleton h-4 w-full bg-[#333333] rounded"></div>
+              <div className="skeleton h-4 w-full bg-[#333333] rounded"></div>
+              <div className="skeleton h-4 w-5/6 bg-[#333333] rounded"></div>
+              <div className="skeleton h-4 w-full mt-4 bg-[#333333] rounded"></div>
+              <div className="skeleton h-4 w-4/5 bg-[#333333] rounded"></div>
+              <div className="skeleton h-32 w-full mt-6 bg-[#333333] rounded"></div>
+            </div>
+          ) : problem ? (
             <>
               {activeLeftTab === "description" && (
                 <div>
@@ -267,11 +276,11 @@ const Problem = () => {
                     <div className="flex flex-wrap items-center gap-2">
                       {/* Difficulty badge */}
                       <span
-                        className={`badge badge-outline font-semibold ${problem.difficulty?.toLowerCase() === "easy"
-                            ? "border-green-500 text-green-500"
-                            : problem.difficulty?.toLowerCase() === "medium"
-                              ? "border-yellow-500 text-yellow-500"
-                              : "border-red-500 text-red-500"
+                        className={`badge badge-outline rounded-md font-semibold ${problem.difficulty?.toLowerCase() === "easy"
+                          ? "border-[#2cbb5d] text-[#2cbb5d]"
+                          : problem.difficulty?.toLowerCase() === "medium"
+                            ? "border-[#ffc01e] text-[#ffc01e]"
+                            : "border-[#ff375f] text-[#ff375f]"
                           }`}
                       >
                         {problem.difficulty}
@@ -281,7 +290,7 @@ const Problem = () => {
                         problem.tags.map((tag, index) => (
                           <span
                             key={`${tag}-${index}`}
-                            className="badge badge-outline badge-info"
+                            className="badge badge-outline rounded-md border-[#3a3a3a] text-[#5c9eff]"
                           >
                             {tag}
                           </span>
@@ -300,7 +309,7 @@ const Problem = () => {
                     <h3 className="text-lg font-semibold mb-4">Examples:</h3>
                     <div className="space-y-4">
                       {(problem.testCases || []).map((example, index) => (
-                        <div key={index} className="bg-base-200 p-4 rounded-lg">
+                        <div key={index} className="bg-base-200 p-4 rounded-lg border border-base-300">
                           <h4 className="font-semibold mb-2">
                             Example {index + 1}:
                           </h4>
@@ -342,7 +351,7 @@ const Problem = () => {
                           key={index}
                           className="border border-base-300 rounded-lg"
                         >
-                          <div className="bg-base-200 px-4 py-2 rounded-t-lg">
+                          <div className="bg-base-200 px-4 py-2 rounded-t-lg border-b border-base-300">
                             <h3 className="font-semibold">
                               {problem?.title} - {solution?.language}
                             </h3>
@@ -355,7 +364,7 @@ const Problem = () => {
                         </div>
                       ))
                     ) : (
-                      <p className="text-gray-500">
+                      <p className="text-[#8a8a8a]">
                         Solutions will be available after you solve the problem.
                       </p>
                     )}
@@ -366,7 +375,7 @@ const Problem = () => {
               {activeLeftTab === "submissions" && (
                 <div>
                   <h2 className="text-xl font-bold mb-4">My Submissions</h2>
-                  <div className="text-gray-500">
+                  <div className="text-[#8a8a8a]">
                     <SubmissionHistory problemId={problemId} />
                   </div>
                 </div>
@@ -382,7 +391,7 @@ const Problem = () => {
                 </div>
               )}
             </>
-          )}
+          ) : null}
         </div>
       </div>
 
@@ -404,19 +413,19 @@ const Problem = () => {
         {/* Right Tabs */}
         <div className="tabs tabs-bordered bg-base-200 px-4">
           <button
-            className={`tab ${activeRightTab === "code" ? "tab-active" : ""}`}
+            className={`tab ${activeRightTab === "code" ? "tab-active text-[#ffa116]" : "text-[#8a8a8a] hover:text-[#e0e0e0]"}`}
             onClick={() => setActiveRightTab("code")}
           >
             Code
           </button>
           <button
-            className={`tab ${activeRightTab === "testcase" ? "tab-active" : ""}`}
+            className={`tab ${activeRightTab === "testcase" ? "tab-active text-[#ffa116]" : "text-[#8a8a8a] hover:text-[#e0e0e0]"}`}
             onClick={() => setActiveRightTab("testcase")}
           >
             Testcase
           </button>
           <button
-            className={`tab ${activeRightTab === "result" ? "tab-active" : ""}`}
+            className={`tab ${activeRightTab === "result" ? "tab-active text-[#ffa116]" : "text-[#8a8a8a] hover:text-[#e0e0e0]"}`}
             onClick={() => setActiveRightTab("result")}
           >
             Result
@@ -425,221 +434,241 @@ const Problem = () => {
 
         {/* Right Content */}
         <div className="flex-1 flex flex-col">
-          {activeRightTab === "code" && (
-            <div className="flex-1 flex flex-col">
-              {/* Language Selector */}
-              <div className="flex justify-between items-center p-4 border-b border-base-300">
+          {loading && !problem ? (
+            <div className="flex-1 flex flex-col p-4">
+              <div className="flex gap-2 mb-4">
+                <div className="skeleton h-8 w-16 bg-[#333333] rounded"></div>
+                <div className="skeleton h-8 w-24 bg-[#333333] rounded"></div>
+                <div className="skeleton h-8 w-16 bg-[#333333] rounded"></div>
+              </div>
+              <div className="skeleton flex-1 w-full mb-4 bg-[#333333] rounded"></div>
+              <div className="flex justify-between pt-4 border-t border-base-300">
+                <div className="skeleton h-8 w-20 bg-[#333333] rounded"></div>
                 <div className="flex gap-2">
-                  {["cpp", "javascript", "java"].map((lang) => (
-                    <button
-                      key={lang}
-                      className={`btn btn-sm ${selectedLanguage === lang ? "btn-primary" : "btn-ghost"}`}
-                      onClick={() => handleLanguageChange(lang)}
+                  <div className="skeleton h-8 w-16 bg-[#333333] rounded"></div>
+                  <div className="skeleton h-8 w-20 bg-[#333333] rounded"></div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <>
+              {activeRightTab === "code" && (
+                <div className="flex-1 flex flex-col">
+                  {/* Language Selector */}
+                  <div className="flex justify-between items-center p-4 border-b border-base-300">
+                    <div className="flex gap-2">
+                      {["cpp", "javascript", "java"].map((lang) => (
+                        <button
+                          key={lang}
+                          className={`btn btn-sm rounded-md ${selectedLanguage === lang ? "btn-primary" : "btn-ghost"}`}
+                          onClick={() => handleLanguageChange(lang)}
+                        >
+                          {lang === "cpp"
+                            ? "C++"
+                            : lang === "javascript"
+                              ? "JavaScript"
+                              : "Java"}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Monaco Editor */}
+                  <div className="flex-1">
+                    <Editor
+                      height="100%"
+                      language={getLanguageForMonaco(selectedLanguage)}
+                      value={code}
+                      onChange={handleEditorChange}
+                      onMount={handleEditorDidMount}
+                      theme="vs-dark"
+                      options={{
+                        fontSize: 14,
+                        minimap: { enabled: false },
+                        scrollBeyondLastLine: false,
+                        automaticLayout: true,
+                        tabSize: 2,
+                        insertSpaces: true,
+                        wordWrap: "on",
+                        lineNumbers: "on",
+                        glyphMargin: false,
+                        folding: true,
+                        lineDecorationsWidth: 10,
+                        lineNumbersMinChars: 3,
+                        renderLineHighlight: "line",
+                        selectOnLineNumbers: true,
+                        roundedSelection: false,
+                        readOnly: false,
+                        cursorStyle: "line",
+                        mouseWheelZoom: true,
+                      }}
+                    />
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="p-4 border-t border-base-300 flex justify-between">
+                    <div className="flex gap-2">
+                      <button
+                        className="btn btn-ghost btn-sm rounded-md"
+                        onClick={() => setActiveRightTab("testcase")}
+                      >
+                        Console
+                      </button>
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        className={`btn btn-outline btn-sm rounded-md ${loading ? "loading" : ""}`}
+                        onClick={handleRun}
+                        disabled={loading}
+                      >
+                        Run
+                      </button>
+                      <button
+                        className={`btn btn-primary btn-sm rounded-md ${loading ? "loading" : ""}`}
+                        onClick={handleSubmitCode}
+                        disabled={loading}
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeRightTab === "testcase" && (
+                <div className="flex-1 p-4 overflow-y-auto">
+                  <h3 className="font-semibold mb-4">Test Results</h3>
+                  {runResult ? (
+                    <div
+                      className={`alert rounded-md ${runResult.success ? "alert-success" : "alert-error"} mb-4`}
                     >
-                      {lang === "cpp"
-                        ? "C++"
-                        : lang === "javascript"
-                          ? "JavaScript"
-                          : "Java"}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Monaco Editor */}
-              <div className="flex-1">
-                <Editor
-                  height="100%"
-                  language={getLanguageForMonaco(selectedLanguage)}
-                  value={code}
-                  onChange={handleEditorChange}
-                  onMount={handleEditorDidMount}
-                  theme="vs-dark"
-                  options={{
-                    fontSize: 14,
-                    minimap: { enabled: false },
-                    scrollBeyondLastLine: false,
-                    automaticLayout: true,
-                    tabSize: 2,
-                    insertSpaces: true,
-                    wordWrap: "on",
-                    lineNumbers: "on",
-                    glyphMargin: false,
-                    folding: true,
-                    lineDecorationsWidth: 10,
-                    lineNumbersMinChars: 3,
-                    renderLineHighlight: "line",
-                    selectOnLineNumbers: true,
-                    roundedSelection: false,
-                    readOnly: false,
-                    cursorStyle: "line",
-                    mouseWheelZoom: true,
-                  }}
-                />
-              </div>
-
-              {/* Action Buttons */}
-              <div className="p-4 border-t border-base-300 flex justify-between">
-                <div className="flex gap-2">
-                  <button
-                    className="btn btn-ghost btn-sm"
-                    onClick={() => setActiveRightTab("testcase")}
-                  >
-                    Console
-                  </button>
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    className={`btn btn-outline btn-sm ${loading ? "loading" : ""}`}
-                    onClick={handleRun}
-                    disabled={loading}
-                  >
-                    Run
-                  </button>
-                  <button
-                    className={`btn btn-primary btn-sm ${loading ? "loading" : ""}`}
-                    onClick={handleSubmitCode}
-                    disabled={loading}
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeRightTab === "testcase" && (
-            <div className="flex-1 p-4 overflow-y-auto">
-              <h3 className="font-semibold mb-4">Test Results</h3>
-              {runResult ? (
-                <div
-                  className={`alert ${runResult.success ? "alert-success" : "alert-error"} mb-4`}
-                >
-                  <div>
-                    {runResult.success ? (
                       <div>
-                        <h4 className="font-bold">✅ All test cases passed!</h4>
-                        <p className="text-sm mt-2">
-                          Runtime: {runResult.runtime + " sec"}
-                        </p>
-                        <p className="text-sm">
-                          Memory: {runResult.memory + " KB"}
-                        </p>
+                        {runResult.success ? (
+                          <div>
+                            <h4 className="font-bold">✅ All test cases passed!</h4>
+                            <p className="text-sm mt-2">
+                              Runtime: {runResult.runtime + " sec"}
+                            </p>
+                            <p className="text-sm">
+                              Memory: {runResult.memory + " KB"}
+                            </p>
 
-                        <div className="mt-4 space-y-2">
-                          {runResult.testCases.map((tc, i) => (
-                            <div
-                              key={i}
-                              className="bg-base-100 p-3 rounded text-xs"
-                            >
-                              <div className="font-mono">
-                                <div>
-                                  <strong>Input:</strong> {tc.stdin}
-                                </div>
-                                <div>
-                                  <strong>Expected:</strong>{" "}
-                                  {tc.expected_output}
-                                </div>
-                                <div>
-                                  <strong>Output:</strong> {tc.stdout}
-                                </div>
-                                <div className={"text-green-600"}>
-                                  {"✓ Passed"}
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      <div>
-                        <h4 className="font-bold">❌ Error</h4>
-                        {runResult.error ? (
-                          <p className="text-sm mt-2">{runResult.error}</p>
-                        ) : null}
-                        <div className="mt-4 space-y-2">
-                          {(runResult.testCases || []).map((tc, i) => (
-                            <div
-                              key={i}
-                              className="bg-base-100 p-3 rounded text-xs"
-                            >
-                              <div className="font-mono">
-                                <div>
-                                  <strong>Input:</strong> {tc.stdin}
-                                </div>
-                                <div>
-                                  <strong>Expected:</strong>{" "}
-                                  {tc.expected_output}
-                                </div>
-                                <div>
-                                  <strong>Output:</strong> {tc.stdout}
-                                </div>
+                            <div className="mt-4 space-y-2">
+                              {runResult.testCases.map((tc, i) => (
                                 <div
-                                  className={
-                                    tc.status_id == 3
-                                      ? "text-green-600"
-                                      : "text-red-600"
-                                  }
+                                  key={i}
+                                  className="bg-base-100 p-3 rounded text-xs"
                                 >
-                                  {tc.status_id == 3 ? "✓ Passed" : "✗ Failed"}
+                                  <div className="font-mono">
+                                    <div>
+                                      <strong>Input:</strong> {tc.stdin}
+                                    </div>
+                                    <div>
+                                      <strong>Expected:</strong>{" "}
+                                      {tc.expected_output}
+                                    </div>
+                                    <div>
+                                      <strong>Output:</strong> {tc.stdout}
+                                    </div>
+                                    <div className={"text-[#2cbb5d]"}>
+                                      {"✓ Passed"}
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
+                              ))}
                             </div>
-                          ))}
-                        </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <h4 className="font-bold">❌ Error</h4>
+                            {runResult.error ? (
+                              <p className="text-sm mt-2">{runResult.error}</p>
+                            ) : null}
+                            <div className="mt-4 space-y-2">
+                              {(runResult.testCases || []).map((tc, i) => (
+                                <div
+                                  key={i}
+                                  className="bg-base-100 p-3 rounded text-xs"
+                                >
+                                  <div className="font-mono">
+                                    <div>
+                                      <strong>Input:</strong> {tc.stdin}
+                                    </div>
+                                    <div>
+                                      <strong>Expected:</strong>{" "}
+                                      {tc.expected_output}
+                                    </div>
+                                    <div>
+                                      <strong>Output:</strong> {tc.stdout}
+                                    </div>
+                                    <div
+                                      className={
+                                        tc.status_id == 3
+                                          ? "text-[#2cbb5d]"
+                                          : "text-[#ff375f]"
+                                      }
+                                    >
+                                      {tc.status_id == 3 ? "✓ Passed" : "✗ Failed"}
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <div className="text-gray-500">
-                  Click "Run" to test your code with the example test cases.
+                    </div>
+                  ) : (
+                    <div className="text-[#8a8a8a]">
+                      Click "Run" to test your code with the example test cases.
+                    </div>
+                  )}
                 </div>
               )}
-            </div>
-          )}
 
-          {activeRightTab === "result" && (
-            <div className="flex-1 p-4 overflow-y-auto">
-              <h3 className="font-semibold mb-4">Submission Result</h3>
-              {submitResult ? (
-                <div
-                  className={`alert ${submitResult.status === "Accepted" ? "alert-success" : "alert-error"}`}
-                >
-                  <div>
-                    {submitResult.status === "Accepted" ? (
+              {activeRightTab === "result" && (
+                <div className="flex-1 p-4 overflow-y-auto">
+                  <h3 className="font-semibold mb-4">Submission Result</h3>
+                  {submitResult ? (
+                    <div
+                      className={`alert rounded-md ${submitResult.status === "Accepted" ? "alert-success" : "alert-error"}`}
+                    >
                       <div>
-                        <h4 className="font-bold text-lg">🎉 Accepted</h4>
-                        <div className="mt-4 space-y-2">
-                          <p>
-                            Test Cases Passed: {submitResult.passedTestCases}/
-                            {submitResult.totalTestCases}
-                          </p>
-                          <p>Runtime: {submitResult.runTime + " sec"}</p>
-                          <p>Memory: {submitResult.memory + "KB"} </p>
-                        </div>
+                        {submitResult.status === "Accepted" ? (
+                          <div>
+                            <h4 className="font-bold text-lg">🎉 Accepted</h4>
+                            <div className="mt-4 space-y-2">
+                              <p>
+                                Test Cases Passed: {submitResult.passedTestCases}/
+                                {submitResult.totalTestCases}
+                              </p>
+                              <p>Runtime: {submitResult.runTime + " sec"}</p>
+                              <p>Memory: {submitResult.memory + "KB"} </p>
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <h4 className="font-bold text-lg">
+                              ❌ {submitResult.errorMessage || submitResult.status}
+                            </h4>
+                            <div className="mt-4 space-y-2">
+                              <p>
+                                Test Cases Passed: {submitResult.passedTestCases}/
+                                {submitResult.totalTestCases}
+                              </p>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    ) : (
-                      <div>
-                        <h4 className="font-bold text-lg">
-                          ❌ {submitResult.errorMessage || submitResult.status}
-                        </h4>
-                        <div className="mt-4 space-y-2">
-                          <p>
-                            Test Cases Passed: {submitResult.passedTestCases}/
-                            {submitResult.totalTestCases}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <div className="text-gray-500">
-                  Click "Submit" to submit your solution for evaluation.
+                    </div>
+                  ) : (
+                    <div className="text-[#8a8a8a]">
+                      Click "Submit" to submit your solution for evaluation.
+                    </div>
+                  )}
                 </div>
               )}
-            </div>
+            </>
           )}
         </div>
       </div>

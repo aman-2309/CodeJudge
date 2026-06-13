@@ -1,2 +1,53 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: leetcode --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "leetcode";
+  default: true;
+  color-scheme: dark;
+
+  --color-base-100: #1a1a1a;
+  --color-base-200: #262626;
+  --color-base-300: #333333;
+  --color-base-content: #e0e0e0;
+
+  --color-primary: #ffa116;
+  --color-primary-content: #1a1a1a;
+
+  --color-neutral: #3a3a3a;
+  --color-neutral-content: #e0e0e0;
+
+  --color-success: #2cbb5d;
+  --color-success-content: #ffffff;
+
+  --color-warning: #ffc01e;
+  --color-warning-content: #1a1a1a;
+
+  --color-error: #ff375f;
+  --color-error-content: #ffffff;
+
+  --color-info: #5c9eff;
+  --color-info-content: #ffffff;
+}
+
+/* Toned-down skeleton shimmer — less bright against dark backgrounds */
+.skeleton {
+  background-color: #2a2a2a;
+  background-image: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 40%,
+    #353535 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

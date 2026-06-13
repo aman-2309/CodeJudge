@@ -87,7 +87,7 @@ function ChatAi({ problem }) {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="sticky bottom-0 p-4 bg-base-100 border-t"
+        className="sticky bottom-0 p-4 bg-[#262626] border-t border-[#3a3a3a]"
       >
         <div className="flex items-center">
           <input
@@ -97,7 +97,7 @@ function ChatAi({ problem }) {
           />
           <button
             type="submit"
-            className="btn btn-ghost ml-2"
+            className="btn btn-ghost ml-2 rounded-md text-[#8a8a8a] hover:text-[#ffa116]"
             disabled={errors.message}
           >
             <Send size={20} />

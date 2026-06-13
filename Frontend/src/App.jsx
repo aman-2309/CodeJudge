@@ -40,91 +40,91 @@ function App() {
       <Navbar />
       <div className="pt-16">
         <Routes>
-        <Route
-          path="/"
-          element={
-            isAuthenticated ? <Homepage></Homepage> : <Navigate to="/signup" />
-          }
-        ></Route>
-        <Route
-          path="/login"
-          element={isAuthenticated ? <Navigate to="/" /> : <Login></Login>}
-        ></Route>
-        <Route
-          path="/signup"
-          element={isAuthenticated ? <Navigate to="/" /> : <Signup></Signup>}
-        ></Route>
-        <Route
-          path="/admin"
-          element={
-            isAuthenticated && user?.role === "admin" ? (
-              <Admin />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        ></Route>
-        <Route
-          path="/admin/create"
-          element={
-            isAuthenticated && user?.role === "admin" ? (
-              <AdminCreate />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
-        <Route
-          path="/admin/delete"
-          element={
-            isAuthenticated && user?.role === "admin" ? (
-              <AdminDelete />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
+          <Route
+            path="/"
+            element={
+              isAuthenticated ? <Homepage></Homepage> : <Navigate to="/signup" />
+            }
+          ></Route>
+          <Route
+            path="/login"
+            element={isAuthenticated ? <Navigate to="/" /> : <Login></Login>}
+          ></Route>
+          <Route
+            path="/signup"
+            element={isAuthenticated ? <Navigate to="/" /> : <Signup></Signup>}
+          ></Route>
+          <Route
+            path="/admin"
+            element={
+              isAuthenticated && user?.role === "admin" ? (
+                <Admin />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          ></Route>
+          <Route
+            path="/admin/create"
+            element={
+              isAuthenticated && user?.role === "admin" ? (
+                <AdminCreate />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
+          <Route
+            path="/admin/delete"
+            element={
+              isAuthenticated && user?.role === "admin" ? (
+                <AdminDelete />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
 
-        <Route
-          path="/admin/update"
-          element={
-            isAuthenticated && user?.role === "admin" ? (
-              <AdminUpdate />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
+          <Route
+            path="/admin/update"
+            element={
+              isAuthenticated && user?.role === "admin" ? (
+                <AdminUpdate />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
 
-        <Route
-          path="/admin/video"
-          element={
-            isAuthenticated && user?.role === "admin" ? (
-              <AdminVideo />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
+          <Route
+            path="/admin/video"
+            element={
+              isAuthenticated && user?.role === "admin" ? (
+                <AdminVideo />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
 
-        <Route
-          path="/admin/upload/:problemId"
-          element={
-            isAuthenticated && user?.role === "admin" ? (
-              <AdminUpload />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
-        <Route
-          path="/profile"
-          element={isAuthenticated ? <Profile /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/problem/:problemId"
-          element={isAuthenticated ? <Problem /> : <Navigate to="/login" />}
-        ></Route>
+          <Route
+            path="/admin/upload/:problemId"
+            element={
+              isAuthenticated && user?.role === "admin" ? (
+                <AdminUpload />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
+          <Route
+            path="/profile"
+            element={isAuthenticated ? <Profile /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/problem/:problemId"
+            element={isAuthenticated ? <Problem /> : <Navigate to="/login" />}
+          ></Route>
         </Routes>
       </div>
     </>

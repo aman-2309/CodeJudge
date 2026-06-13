@@ -47,8 +47,36 @@ const SubmissionHistory = ({ problemId }) => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <span className="loading loading-spinner loading-lg"></span>
+      <div className="container mx-auto p-4">
+        <h2 className="text-2xl font-bold mb-6 text-center">Submission History</h2>
+        <div className="overflow-x-auto">
+          <table className="table w-full">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Language</th>
+                <th>Status</th>
+                <th>Runtime</th>
+                <th>Memory</th>
+                <th>Submitted</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[1, 2, 3, 4, 5].map((i) => (
+                <tr key={i}>
+                  <td><div className="skeleton h-4 w-4"></div></td>
+                  <td><div className="skeleton h-4 w-16"></div></td>
+                  <td><div className="skeleton h-6 w-20 rounded-full"></div></td>
+                  <td><div className="skeleton h-4 w-12"></div></td>
+                  <td><div className="skeleton h-4 w-16"></div></td>
+                  <td><div className="skeleton h-4 w-32"></div></td>
+                  <td><div className="skeleton h-8 w-16 rounded"></div></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
@@ -113,7 +141,7 @@ const SubmissionHistory = ({ problemId }) => {
                     <td>{formatDate(sub.createdAt)}</td>
                     <td>
                       <button 
-                        className="btn btn-s btn-outline"
+                        className="btn btn-sm btn-outline rounded-md"
                         onClick={() => setSelectedSubmission(sub)}
                       >
                         Code
@@ -134,7 +162,7 @@ const SubmissionHistory = ({ problemId }) => {
       {/* Code View Modal */}
       {selectedSubmission && (
         <div className="modal modal-open">
-          <div className="modal-box w-11/12 max-w-5xl">
+          <div className="modal-box w-11/12 max-w-5xl bg-[#262626] border border-[#3a3a3a] rounded-lg">
             <h3 className="font-bold text-lg mb-4">
               Submission Details: {selectedSubmission.language}
             </h3>
@@ -164,7 +192,7 @@ const SubmissionHistory = ({ problemId }) => {
               )}
             </div>
             
-            <pre className="p-4 bg-gray-900 text-gray-100 rounded overflow-x-auto">
+            <pre className="p-4 bg-[#1a1a1a] text-[#e0e0e0] rounded overflow-x-auto font-mono text-sm">
               <code>{selectedSubmission.sourceCode}</code>
             </pre>
             

@@ -45,7 +45,7 @@ const Editorial = ({ secureUrl, thumbnailUrl, duration }) => {
 
     return (
         <div
-            className="relative w-full max-w-2xl mx-auto rounded-xl overflow-hidden shadow-lg"
+            className="relative w-full max-w-2xl mx-auto rounded-lg overflow-hidden"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
         >

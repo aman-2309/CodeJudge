@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams } from "react-router";
 import { registerUser, checkAuth } from "../authSlice";
 import axiosClient from "../utils/axiosClient";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 //Schema validation
 
@@ -106,18 +107,24 @@ function Signup() {
     const apiBase = axiosClient.defaults.baseURL || "http://localhost:5000";
     window.location.href = `${apiBase}/user/google`;
   };
+
   return (
-    <div className="min-h-screen bg-base-300 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-md bg-base-100 rounded-md shadow-md border border-base-300 p-8">
+    <div className="min-h-screen bg-[#1a1a1a] flex items-center justify-center px-4 py-10">
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="w-full max-w-md bg-[#262626] rounded-lg border border-[#3a3a3a] p-8"
+      >
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold tracking-tight">CodeJudge</h1>
-          <p className="text-sm text-base-content/60 mt-2">
+          <h1 className="text-4xl font-bold tracking-tight text-[#e0e0e0]">CodeJudge</h1>
+          <p className="text-sm text-[#8a8a8a] mt-2">
             Create your account
           </p>
         </div>
 
         {message && (
-          <div className="alert alert-success mb-4 text-sm py-2">
+          <div className="alert alert-success mb-4 text-sm py-2 rounded-md">
             <span>{message}</span>
           </div>
         )}
@@ -126,12 +133,12 @@ function Signup() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <label className="label">
-                <span className="label-text">First Name</span>
+                <span className="label-text text-[#e0e0e0]">First Name</span>
               </label>
               <input
                 {...register("firstName", { required: true })}
                 placeholder="Jhon"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-[#1a1a1a] border-[#3a3a3a] text-[#e0e0e0] placeholder-[#8a8a8a] focus:border-[#ffa116] focus:outline-none rounded-lg"
               />
               {errors.firstName && (
                 <p className="text-error text-sm mt-1">
@@ -142,12 +149,12 @@ function Signup() {
 
             <div>
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="label-text text-[#e0e0e0]">Email</span>
               </label>
               <input
                 {...register("emailId", { required: true })}
                 placeholder="jhon@example.com"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full bg-[#1a1a1a] border-[#3a3a3a] text-[#e0e0e0] placeholder-[#8a8a8a] focus:border-[#ffa116] focus:outline-none rounded-lg"
                 type="email"
               />
               {errors.emailId && (
@@ -159,19 +166,19 @@ function Signup() {
 
             <div>
               <label className="label">
-                <span className="label-text">Password</span>
+                <span className="label-text text-[#e0e0e0]">Password</span>
               </label>
               <div className="relative">
                 <input
                   {...register("password", { required: true })}
                   placeholder="********"
                   type={showPassword ? "text" : "password"}
-                  className="input input-bordered w-full pr-12"
+                  className="input input-bordered w-full pr-12 bg-[#1a1a1a] border-[#3a3a3a] text-[#e0e0e0] placeholder-[#8a8a8a] focus:border-[#ffa116] focus:outline-none rounded-lg"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute inset-y-0 right-0 px-3 text-base-content/70 hover:text-base-content"
+                  className="absolute inset-y-0 right-0 px-3 text-[#8a8a8a] hover:text-[#e0e0e0]"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -219,21 +226,23 @@ function Signup() {
               )}
             </div>
 
-            <button
+            <motion.button
               type="submit"
-              className="btn btn-neutral w-full mt-1"
+              className="btn w-full mt-1 rounded-md border-none bg-[#ffa116] text-[#1a1a1a] hover:bg-[#ffb84d]"
               disabled={localLoading}
+              whileTap={{ scale: 0.98 }}
             >
               {localLoading ? "Sending OTP..." : "Sign Up"}
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
               type="button"
-              className="btn btn-outline w-full"
+              className="btn btn-outline w-full rounded-md border-[#3a3a3a] text-[#e0e0e0] hover:border-[#ffa116] hover:bg-[#333333] hover:text-[#e0e0e0]"
               onClick={handleGoogleSignup}
+              whileTap={{ scale: 0.98 }}
             >
               Continue with Google
-            </button>
+            </motion.button>
 
             {(error || googleError) && (
               <p className="text-error text-sm text-center">
@@ -241,11 +250,11 @@ function Signup() {
               </p>
             )}
 
-            <div className="text-center text-sm text-base-content/60 pt-2">
+            <div className="text-center text-sm text-[#8a8a8a] pt-2">
               Have an account?{" "}
               <button
                 type="button"
-                className="link link-hover"
+                className="link link-hover text-[#ffa116]"
                 onClick={() => navigate("/login")}
               >
                 Log In
@@ -254,13 +263,13 @@ function Signup() {
           </form>
         ) : (
           <form onSubmit={handleVerifyOtp} className="space-y-4">
-            <p className="text-center text-sm text-base-content/80">
+            <p className="text-center text-sm text-[#e0e0e0]">
               Enter the OTP sent to <strong>{formData?.emailId}</strong>
             </p>
 
             <div>
               <label className="label">
-                <span className="label-text">OTP</span>
+                <span className="label-text text-[#e0e0e0]">OTP</span>
               </label>
               <input
                 placeholder="6-digit OTP"
@@ -268,26 +277,28 @@ function Signup() {
                 onChange={(e) => setOtp(e.target.value)}
                 maxLength={6}
                 required
-                className="input input-bordered w-full text-center tracking-widest text-lg"
+                className="input input-bordered w-full text-center tracking-widest text-lg bg-[#1a1a1a] border-[#3a3a3a] text-[#e0e0e0] focus:border-[#ffa116] focus:outline-none rounded-lg"
               />
             </div>
 
-            <button
+            <motion.button
               type="submit"
-              className="btn btn-neutral w-full mt-1"
+              className="btn w-full mt-1 rounded-md border-none bg-[#ffa116] text-[#1a1a1a] hover:bg-[#ffb84d]"
               disabled={localLoading}
+              whileTap={{ scale: 0.98 }}
             >
               {localLoading ? "Verifying..." : "Verify & Register"}
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
               type="button"
-              className="btn btn-outline w-full"
+              className="btn btn-outline w-full rounded-md border-[#3a3a3a] text-[#e0e0e0] hover:border-[#ffa116] hover:bg-[#333333] hover:text-[#e0e0e0]"
               onClick={() => setStep(1)}
               disabled={localLoading}
+              whileTap={{ scale: 0.98 }}
             >
               Back
-            </button>
+            </motion.button>
 
             {googleError && (
               <p className="text-error text-sm text-center mt-2">
@@ -296,7 +307,7 @@ function Signup() {
             )}
           </form>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

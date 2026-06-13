@@ -99,7 +99,7 @@ function AdminUpload() {
 
     return (
         <div className="max-w-md mx-auto p-6">
-            <div className="card bg-base-100 shadow-xl">
+            <div className="card bg-[#262626] border border-[#3a3a3a] rounded-lg">
                 <div className="card-body">
                     <h2 className="card-title">Upload Video</h2>
 
@@ -187,7 +187,7 @@ function AdminUpload() {
                             <button
                                 type="submit"
                                 disabled={uploading}
-                                className={`btn btn-primary ${uploading ? 'loading' : ''}`}
+                                className={`btn btn-primary rounded-md border-none bg-[#ffa116] text-[#1a1a1a] hover:bg-[#ffb84d] ${uploading ? 'loading' : ''}`}
                             >
                                 {uploading ? 'Uploading...' : 'Upload Video'}
                             </button>

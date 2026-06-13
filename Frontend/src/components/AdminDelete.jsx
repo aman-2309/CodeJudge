@@ -46,7 +46,7 @@ const AdminDelete = () => {
 
   if (error) {
     return (
-      <div className="alert alert-error shadow-lg my-4">
+      <div className="alert alert-error my-4 rounded-md">
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -108,17 +108,17 @@ const AdminDelete = () => {
                       problem.tags.map((tag, tagIndex) => (
                         <span
                           key={`${problem._id}-tag-${tagIndex}`}
-                          className="badge badge-outline"
+                          className="badge badge-outline rounded-md text-xs border-[#3a3a3a] text-[#5c9eff]"
                         >
                           {tag}
                         </span>
                       ))
                     ) : problem.tags ? (
-                      <span className="badge badge-outline">
+                      <span className="badge badge-outline rounded-md text-xs border-[#3a3a3a] text-[#5c9eff]">
                         {problem.tags}
                       </span>
                     ) : (
-                      <span className="text-xs text-gray-500">No tags</span>
+                      <span className="text-xs text-[#8a8a8a]">No tags</span>
                     )}
                   </div>
                 </td>
@@ -126,7 +126,7 @@ const AdminDelete = () => {
                   <div className="flex space-x-2">
                     <button
                       onClick={() => handleDelete(problem._id)}
-                      className="btn btn-sm btn-error"
+                      className="btn btn-sm btn-error rounded-md"
                     >
                       Delete
                     </button>
